@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サポート | キャリアデザインアプリ</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --accent: #3a86ff;
+            --accent-light: #eff6ff;
+            --bg: #f8f9fc;
+            --card-bg: #ffffff;
+            --text: #2d2d3a;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --success-light: #ecfdf5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* ヘッダー */
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.02em;
+        }
+
+        header .subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* セクション共通 */
+        section {
+            margin-bottom: 48px;
+        }
+
+        section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            padding-left: 14px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* メール連絡先 */
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .contact-card .icon {
+            font-size: 28px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .contact-card .info p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .contact-card .info a {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .contact-card .info a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-card .note {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* お問い合わせフォーム */
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 1px 6px;
+            background: #fee2e2;
+            color: #dc2626;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--text);
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.12);
+        }
+
+        /* バリデーションエラー */
+        .form-group input.error,
+        .form-group select.error,
+        .form-group textarea.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+
+        .form-group .error-msg {
+            display: none;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #dc2626;
+        }
+
+        .form-group .error-msg.show {
+            display: block;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 32px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background: #1e6fef;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 送信完了メッセージ */
+        .success-message {
+            display: none;
+            background: var(--success-light);
+            border: 1px solid #a7f3d0;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-top: 20px;
+            font-size: 15px;
+            color: #065f46;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* FAQ */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 20px;
+            background: none;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            color: var(--primary);
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .faq-question:hover {
+            background: var(--bg);
+        }
+
+        .faq-question .q-label {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 50%;
+        }
+
+        .faq-question .q-text {
+            flex: 1;
+        }
+
+        .faq-question .chevron {
+            flex-shrink: 0;
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: transform 0.25s;
+        }
+
+        .faq-item.open .chevron {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 18px 60px;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px 16px 60px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .form-card {
+                padding: 20px 16px;
+            }
+
+            .contact-card {
+                padding: 20px 16px;
+            }
+
+            .faq-answer {
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <h1>🛟 サポート</h1>
+            <p class="subtitle">ご不明な点や不具合などはお気軽にお問い合わせください</p>
+        </header>
+
+        <!-- メールアドレス -->
+        <section id="contact-email">
+            <h2>メールでのお問い合わせ</h2>
+            <div class="contact-card">
+                <div class="icon">✉️</div>
+                <div class="info">
+                    <p>下記のメールアドレスへ直接ご連絡いただくか、下のフォームをご利用ください。</p>
+                    <a href="mailto:it.18232428@gmail.com">it.18232428@gmail.com</a>
+                    <p class="note">※ 通常3〜5営業日以内にご返信いたします。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- お問い合わせフォーム -->
+        <section id="contact-form">
+            <h2>お問い合わせフォーム</h2>
+            <div class="form-card">
+                <form id="supportForm" onsubmit="handleSubmit(event)">
+
+                    <div class="form-group">
+                        <label for="name">お名前 <span class="required">必須</span></label>
+                        <input type="text" id="name" name="name" placeholder="例：山田 太郎" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">メールアドレス <span class="required">必須</span></label>
+                        <input type="email" id="email" name="email" placeholder="例：you@example.com" required
+                            oninput="clearEmailError()" onblur="validateEmailField()">
+                        <span class="error-msg" id="emailError">有効なメールアドレスを入力してください（例：you@example.com）</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">お問い合わせの種類 <span class="required">必須</span></label>
+                        <select id="category" name="category" required>
+                            <option value="" disabled selected>選択してください</option>
+                            <option value="bug">不具合・バグの報告</option>
+                            <option value="feature">機能・改善のご要望</option>
+                            <option value="account">アカウントについて</option>
+                            <option value="data">データ・プライバシーについて</option>
+                            <option value="other">その他</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">お問い合わせ内容 <span class="required">必須</span></label>
+                        <textarea id="message" name="message"
+                            placeholder="お問い合わせの内容を詳しくご記入ください。&#10;&#10;（不具合の場合：発生した状況、操作手順、端末の機種・OSバージョンなども合わせてお知らせいただくとスムーズです）"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span>📨</span> 送信する
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMsg">
+                    ✅ お問い合わせを受け付けました。通常3〜5営業日以内にご返信いたします。しばらくお待ちください。
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq">
+            <h2>よくあるご質問（FAQ）</h2>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="q-label">Q</span>
+                        <span class="q-text">入力したデータはどこに保存されますか？</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        アカウントを作成しない場合、すべてのデータはお使いの端末内にのみ保存されます。アカウントを作成した場合は、写真データを除く入力情報が
+                        外部サーバーに保存されます。詳しくは<a href="privacy-policy.html">プライバシーポリシー</a>をご確認ください。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="q-label">Q</span>
+                        <span class="q-text">アプリをアンインストールするとデータはどうなりますか？</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        アカウントなしの場合、アンインストールと同時に端末内のすべてのデータが削除されます（復元不可）。アカウントありの場合は、外部サーバーのデータは引き続き保持されます。アカウントごと削除したい場合は、アプリ内設定の「アカウント削除」をご利用ください。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="q-label">Q</span>
+                        <span class="q-text">作成した履歴書・スキルシートをPDFで書き出せますか？</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        はい、対応しています。各書類の画面から「PDF出力」ボタンをタップするとPDFが生成され、端末への保存や共有が可能です。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="q-label">Q</span>
+                        <span class="q-text">写真（顔写真）はサーバーに送信されますか？</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        いいえ。写真データはアカウントの有無にかかわらず、常にお使いの端末内にのみ保存されます。外部サーバーには一切送信されません。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="q-label">Q</span>
+                        <span class="q-text">PDFの生成中にエラーが表示されます。どうすれば解決できますか？</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        以下の手順をお試しください：<br>
+                        ① アプリを完全に終了し、再度起動する<br>
+                        ② 端末のストレージ空き容量を確認する<br>
+                        ③ アプリを最新バージョンにアップデートする<br>
+                        それでも解決しない場合は、お問い合わせフォームより端末機種・OSバージョンとともにご連絡ください。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="q-label">Q</span>
+                        <span class="q-text">Android と iOS の両方で使えますか？</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        iOSのみ対応しています。
+                    </div>
+                </div>
+
+                <!-- 
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="q-label">Q</span>
+                        <span class="q-text">アプリは無料で使えますか？</span>
+                        <span class="chevron">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        基本機能は無料でご利用いただけます。一部のプレミアム機能については、アプリ内でご確認ください。
+                    </div>
+                </div>
+                -->
+
+            </div>
+        </section>
+
+        <footer>
+            <p>
+                <a href="../index.html">← ドキュメント一覧に戻る</a>
+                &nbsp;｜&nbsp;
+                <a href="privacy-policy.html">プライバシーポリシー</a>
+                &nbsp;｜&nbsp;
+                <a href="terms-of-service.html">利用規約</a>
+            </p>
+            <p style="margin-top: 12px;">© 2026 キャリアデザインアプリ</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // FAQ アコーディオン
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+            item.classList.toggle('open', !isOpen);
+            btn.setAttribute('aria-expanded', String(!isOpen));
+        }
+
+        // メールアドレスの形式チェック（RFC5322 簡易版）
+        function isValidEmail(email) {
+            return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email);
+        }
+
+        // フォーカスアウト時のバリデーション
+        function validateEmailField() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const value = emailInput.value.trim();
+
+            if (value === '') {
+                // 空の場合はブラウザの required に任せる（エラー表示しない）
+                emailInput.classList.remove('error');
+                emailError.classList.remove('show');
+                return true;
+            }
+
+            if (!isValidEmail(value)) {
+                emailInput.classList.add('error');
+                emailError.classList.add('show');
+                return false;
+            }
+
+            emailInput.classList.remove('error');
+            emailError.classList.remove('show');
+            return true;
+        }
+
+        // 入力中にエラー表示をリアルタイムでクリア
+        function clearEmailError() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (isValidEmail(emailInput.value.trim())) {
+                emailInput.classList.remove('error');
+                emailError.classList.remove('show');
+            }
+        }
+
+        // お問い合わせフォーム送信（mailto リダイレクト）
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            // 送信前にメールアドレスを最終チェック
+            if (!validateEmailField()) {
+                document.getElementById('email').focus();
+                return;
+            }
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const category = document.getElementById('category').value;
+            const message = document.getElementById('message').value.trim();
+
+            const categoryLabels = {
+                bug: '不具合・バグの報告',
+                feature: '機能・改善のご要望',
+                account: 'アカウントについて',
+                data: 'データ・プライバシーについて',
+                other: 'その他'
+            };
+
+            const subject = encodeURIComponent(`【${categoryLabels[category] || 'お問い合わせ'}】キャリアデザインアプリ サポート`);
+            const body = encodeURIComponent(
+                `お名前：${name}\n` +
+                `返信先メールアドレス：${email}\n` +
+                `種類：${categoryLabels[category] || category}\n\n` +
+                `【お問い合わせ内容】\n${message}`
+            );
+
+            window.location.href = `mailto:it.18232428@gmail.com?subject=${subject}&body=${body}`;
+
+            // 成功メッセージを表示
+            document.getElementById('successMsg').classList.add('show');
+            document.getElementById('supportForm').reset();
+            // リセット後にエラー表示も消す
+            document.getElementById('email').classList.remove('error');
+            document.getElementById('emailError').classList.remove('show');
+        }
+    </script>
+</body>
+
+</html>
